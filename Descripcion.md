@@ -4,7 +4,7 @@ SM School Manager fue el nombre del proyecto presentado en la Tesis de Analista 
 Versión de escritorio desarrollada en Java, utilizando como base de datos MYSql.
 
 SM School Manager es un sistema de gestión escolar multi usuario, en el cual nos permite realizar diferentes actividades como:
-+ Alumnos matriculares
++ Matricular  Alumno
 + Crear Ciclos lectivos, cursos, divisiones.
 + Planes de estudios,
 + Gestión de Calificaciones de los alumnos.
