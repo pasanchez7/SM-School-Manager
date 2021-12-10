@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     usuarios.`idusuarios` AS usuarios_idusuarios,
+     usuarios.`usuario` AS usuarios_usuario,
+     usuarios.`nombre` AS usuarios_nombre,
+     usuarios.`apellido` AS usuarios_apellido,
+     usuarios.`dni` AS usuarios_dni,
+     usuarios.`tel` AS usuarios_tel,
+     tipousuario.`descripcion` AS tipousuario_descripcion,
+     estado_usuarios.`estado` AS estado_usuarios_estado
+FROM
+     `tipousuario` tipousuario INNER JOIN `usuarios` usuarios ON tipousuario.`idtipousuario` = usuarios.`idtipousuario`
+     INNER JOIN `estado_usuarios` estado_usuarios ON usuarios.`idestado_usuarios` = estado_usuarios.`idestado_usuarios`
+where  tipousuario.`descripcion`!='docente']]>
+	</queryString>
+	<field name="usuarios_idusuarios" class="java.lang.Long"/>
+	<field name="usuarios_usuario" class="java.lang.String"/>
+	<field name="usuarios_nombre" class="java.lang.String"/>
+	<field name="usuarios_apellido" class="java.lang.String"/>
+	<field name="usuarios_dni" class="java.lang.String"/>
+	<field name="usuarios_tel" class="java.lang.String"/>
+	<field name="tipousuario_descripcion" class="java.lang.String"/>
+	<field name="estado_usuarios_estado" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="101" splitType="Stretch">
+			<staticText>
+				<reportElement x="226" y="71" width="329" height="20"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[I.P.E.T N° 344 PROF. VICTOR DOMINGUEZ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="52"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="36" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Usuarios]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="41" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="17" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Apellido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="17" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="17" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DNI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="17" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo Usuario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="17" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="17" width="55" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tel]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{usuarios_apellido}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{usuarios_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{usuarios_dni}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{estado_usuarios_estado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tipousuario_descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="0" width="55" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{usuarios_tel}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="21">
+			<textField>
+				<reportElement x="434" y="0" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página" +$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="514" y="0" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="0" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+</jasperReport>

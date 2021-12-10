@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.3310000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idcl" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idcd" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idalumno" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\AAAAAA\\Doc Pablo\\nuevo\\src\\reportes\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     alumno.`Nombre` AS alumno_Nombre,
+     alumno.`Apellido` AS alumno_Apellido,
+     alumno.`DNI` AS alumno_DNI,
+     ciclolectivo.`año` AS ciclolectivo_año,
+     curso_division.`division` AS curso_division_division,
+     curso.`Descripcion` AS curso_Descripcion,
+     turno.`turno` AS turno_turno,
+     alumno.`idAlumno` AS alumno_idAlumno
+FROM
+     `ciclolectivo` ciclolectivo INNER JOIN `detalle_matricula` detalle_matricula ON ciclolectivo.`idciclolectivo` = detalle_matricula.`idciclolectivo`
+     INNER JOIN `alumno` alumno ON detalle_matricula.`idAlumno` = alumno.`idAlumno`
+     INNER JOIN `curso_division` curso_division ON detalle_matricula.`idcurso_division` = curso_division.`idcurso_division`
+     INNER JOIN `curso` curso ON curso_division.`idcurso` = curso.`idcurso`
+     INNER JOIN `turno` turno ON curso_division.`idturno` = turno.`idturno`
+     INNER JOIN `familiar_alumno` familiar_alumno ON alumno.`idAlumno` = familiar_alumno.`idAlumno`
+     INNER JOIN `familiar` familiar ON familiar_alumno.`idfamiliar` = familiar.`idfamiliar`
+WHERE
+     detalle_matricula.`idciclolectivo` = $P{idcl}
+     and detalle_matricula.`idcurso_division` = $P{idcd}
+and alumno.`idAlumno`=$P{idalumno}
+group by alumno.`idAlumno`
+ORDER BY
+     alumno_Apellido ASC,
+     alumno_Nombre ASC]]>
+	</queryString>
+	<field name="alumno_Nombre" class="java.lang.String"/>
+	<field name="alumno_Apellido" class="java.lang.String"/>
+	<field name="alumno_DNI" class="java.lang.String"/>
+	<field name="ciclolectivo_año" class="java.lang.Long"/>
+	<field name="curso_division_division" class="java.lang.String"/>
+	<field name="curso_Descripcion" class="java.lang.String"/>
+	<field name="turno_turno" class="java.lang.String"/>
+	<field name="alumno_idAlumno" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="82" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="52"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="36" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Listado de Alumnos-Familiar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="226" y="59" width="329" height="20"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[I.P.E.T N° 344 PROF. VICTOR DOMINGUEZ]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="50" splitType="Stretch">
+			<staticText>
+				<reportElement x="-109" y="18" width="49" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Curso:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="18" width="49" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Curso:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="135" y="18" width="63" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Division:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="390" y="18" width="99" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ciclo Lectivo:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="489" y="18" width="66" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ciclolectivo_año}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="198" y="18" width="49" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{curso_division_division}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="50" y="18" width="85" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{curso_Descripcion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="250" y="18" width="48" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Turno:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="298" y="18" width="92" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{turno_turno}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="1" y="0" width="554" height="20" backcolor="#C0C0C0"/>
+				<staticText>
+					<reportElement mode="Transparent" x="34" y="2" width="100" height="18"/>
+					<textElement>
+						<font fontName="Arial" size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Apellido]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="212" y="2" width="100" height="18"/>
+					<textElement>
+						<font fontName="Arial" size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Nombre]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Transparent" x="359" y="0" width="100" height="18"/>
+					<textElement>
+						<font fontName="Arial" size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Dni]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="40" splitType="Stretch">
+			<textField>
+				<reportElement x="213" y="0" width="100" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alumno_Nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="34" y="0" width="100" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alumno_Apellido}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="360" y="0" width="100" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alumno_DNI}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="1" y="20" width="554" height="20"/>
+				<subreportParameter name="idalumno_ff">
+					<subreportParameterExpression><![CDATA[$F{alumno_idAlumno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "report1.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="19" splitType="Stretch">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="6" width="515" height="13" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="6" width="40" height="13" backcolor="#E6E6E6"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subasignatura" pageWidth="146" pageHeight="802" whenNoDataType="AllSectionsNoDetail" columnWidth="146" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="asignatura">
+		<parameter name="a.idcurso" class="java.lang.String"/>
+		<parameter name="a.clectivo" class="java.lang.String"/>
+		<queryString>
+			<![CDATA[SELECT
+     asignatura.`nombre` AS asignatura_nombre
+
+FROM
+     `alumno` alumno INNER JOIN `notas` notas ON alumno.`idAlumno` = notas.`idAlumno`
+     INNER JOIN `asignatura` asignatura ON notas.`idasignatura` = asignatura.`idasignatura`
+     INNER JOIN `curso_division` curso_division ON notas.`idcurso_division` = curso_division.`idcurso_division`
+     INNER JOIN `trimestre` trimestre ON notas.`idtrimestre` = trimestre.`idtrimestre`
+     INNER JOIN `ciclolectivo` ciclolectivo ON notas.`idciclolectivo` = ciclolectivo.`idciclolectivo`
+     AND ciclolectivo.`idciclolectivo` = trimestre.`idciclolectivo`
+     INNER JOIN `curso` curso ON curso_division.`idcurso` = curso.`idcurso`
+WHERE
+    notas.`idcurso_division` = $P{a.idcurso}
+     and notas.`idciclolectivo` =$P{a.clectivo}
+group by asignatura_nombre
+order by asignatura.`idasignatura` asc]]>
+		</queryString>
+		<field name="asignatura_nombre" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="p.idcurso" class="java.lang.String"/>
+	<parameter name="p.clectivo" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select 1]]>
+	</queryString>
+	<field name="1" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="42" splitType="Stretch">
+			<componentElement>
+				<reportElement key="table" style="table" x="0" y="0" width="150" height="40"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="asignatura">
+						<datasetParameter name="a.clectivo">
+							<datasetParameterExpression><![CDATA[$P{p.clectivo}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="a.idcurso">
+							<datasetParameterExpression><![CDATA[$P{p.idcurso}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="142">
+						<jr:columnHeader style="table_CH" height="17" rowSpan="1">
+							<staticText>
+								<reportElement x="3" y="0" width="139" height="17"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Asignatura]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="3" y="0" width="139" height="20"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Arial"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{asignatura_nombre}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+</jasperReport>

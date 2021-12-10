@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idpase" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     dpase.`f_egreso`,
+     dpase.`destino`,
+     dpase.`motivo`,
+     alumno.`Apellido`,
+     alumno.`Nombre`,
+     alumno.`dni`,
+     curso.`Descripcion`,
+     curso_division.`division`,
+     cl.`año`,
+     dpase.`iddpase` AS dpase_iddpase
+FROM
+     `dpase` dpase INNER JOIN `alumno` alumno ON dpase.`idAlumno` = alumno.`idAlumno`
+     INNER JOIN `curso_division` curso_division ON dpase.`idcurso_division` = curso_division.`idcurso_division`
+     INNER JOIN `ciclolectivo` cl ON dpase.`idciclolectivo` = cl.`idciclolectivo`
+     INNER JOIN `curso` curso ON curso_division.`idcurso` = curso.`idcurso`
+where dpase.`iddpase`=$P{idpase}]]>
+	</queryString>
+	<field name="f_egreso" class="java.sql.Date"/>
+	<field name="destino" class="java.lang.String"/>
+	<field name="motivo" class="java.lang.String"/>
+	<field name="Apellido" class="java.lang.String"/>
+	<field name="Nombre" class="java.lang.String"/>
+	<field name="dni" class="java.lang.String"/>
+	<field name="Descripcion" class="java.lang.String"/>
+	<field name="division" class="java.lang.String"/>
+	<field name="año" class="java.lang.Long"/>
+	<field name="dpase_iddpase" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="49" splitType="Stretch">
+			<staticText>
+				<reportElement x="58" y="0" width="497" height="48"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="36" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Detalle  Pase - EGRESO-]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="329" height="20"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[I.P.E.T N° 344 PROF. VICTOR DOMINGUEZ]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="34" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="206" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Villa Cura Brochero, San Alberto, Córdoba]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="20" width="555" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="263" y="2" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Descripcion]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="404" splitType="Stretch">
+			<textField>
+				<reportElement x="339" y="20" width="100" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dni}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="62" width="153" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATOS ACADEMICOS]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="83" y="82" width="100" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{año}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="82" width="83" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ciclo Lectivo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="183" y="82" width="68" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ultimo Año:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="116" width="555" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="0" y="51" width="555" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="0" y="20" width="113" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Apellido y Nombre:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="121" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATOS ALUMNO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="313" y="20" width="26" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DNI:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="130" width="113" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DETALLE PASE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="150" width="48" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Destino:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="48" y="150" width="100" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{destino}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="170" width="116" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Motivo de Solicitud:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="113" y="170" width="208" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{motivo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="190" width="116" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha de Solicitud:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="116" y="190" width="52" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{f_egreso}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="386" width="555" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="113" y="20" width="100" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Apellido}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="213" y="20" width="100" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="251" y="82" width="100" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Descripcion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

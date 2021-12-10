@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryNewPage="true">
+	<property name="ireport.zoom" value="0.6830134553650705"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="New Dataset 1">
+		<parameter name="idcd" class="java.lang.String">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="idcl" class="java.lang.String">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[SELECT
+     curso.`Descripcion` AS curso_Descripcion,
+     curso_division.`idcurso_division` AS curso_division_idcurso_division,
+     curso_division.`division` AS curso_division_division,
+     turno.`turno` AS turno_turno,
+     nivel.`Descripcion` AS nivel_Descripcion,
+     registrotema.`idcurso_division` AS registrotema_idcurso_division,
+     ciclolectivo.`año` AS ciclolectivo_año
+FROM
+     `curso` curso INNER JOIN `curso_division` curso_division ON curso.`idcurso` = curso_division.`idcurso`
+     INNER JOIN `turno` turno ON curso_division.`idturno` = turno.`idturno`
+     INNER JOIN `registrotema` registrotema ON curso_division.`idcurso_division` = registrotema.`idcurso_division`
+     INNER JOIN `ciclolectivo` ciclolectivo ON registrotema.`idciclolectivo` = ciclolectivo.`idciclolectivo`
+     INNER JOIN `nivel` nivel ON curso.`idnivel` = nivel.`idnivel`
+WHERE registrotema.`idciclolectivo` =$P{idcl}
+and
+     registrotema.`idcurso_division` = $P{idcd}
+group by registrotema.`idcurso_division`]]>
+		</queryString>
+		<field name="curso_Descripcion" class="java.lang.String"/>
+		<field name="curso_division_idcurso_division" class="java.lang.Long"/>
+		<field name="curso_division_division" class="java.lang.String"/>
+		<field name="turno_turno" class="java.lang.String"/>
+		<field name="nivel_Descripcion" class="java.lang.String"/>
+		<field name="registrotema_idcurso_division" class="java.lang.Long"/>
+		<field name="ciclolectivo_año" class="java.lang.Long"/>
+	</subDataset>
+	<parameter name="idcursodivision" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idclectivo" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\AAAAAA\\Doc Pablo\\Proyecto\\nuevo\\src\\reportes\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select 1]]>
+	</queryString>
+	<field name="1" class="java.lang.Long"/>
+	<title>
+		<band height="183" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="802" height="113" forecolor="#0000FF"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="48" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Registro de Temas de Clase]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="136" width="802" height="47"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="36" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Libro de Aula]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="372">
+			<staticText>
+				<reportElement x="0" y="96" width="802" height="32"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[I.P.E.T N° 344 PROF. VICTOR DOMINGUEZ]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement key="table 2" style="table 2" x="262" y="160" width="271" height="41"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="New Dataset 1">
+						<datasetParameter name="idcd">
+							<datasetParameterExpression><![CDATA[$P{idcursodivision}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="idcl">
+							<datasetParameterExpression><![CDATA[$P{idclectivo}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="90">
+						<jr:columnHeader style="table 2_CH" height="19" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="19"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Curso/Año]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{curso_Descripcion}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90">
+						<jr:columnHeader style="table 2_CH" height="19" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="19"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[División]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{curso_division_division}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90">
+						<jr:columnHeader style="table 2_CH" height="19" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="19"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Turno]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{turno_turno}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<componentElement>
+				<reportElement key="table 4" style="table 4" x="354" y="219" width="91" height="40"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="New Dataset 1">
+						<datasetParameter name="idcd">
+							<datasetParameterExpression><![CDATA[$P{idcursodivision}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="idcl">
+							<datasetParameterExpression><![CDATA[$P{idclectivo}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="90">
+						<jr:columnHeader style="table 4_CH" height="19" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="19"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Ciclo Lectivo]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 4_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{ciclolectivo_año}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</columnHeader>
+	<summary>
+		<band height="50">
+			<subreport>
+				<reportElement x="0" y="0" width="802" height="50"/>
+				<subreportParameter name="Id_cd">
+					<subreportParameterExpression><![CDATA[$P{idcursodivision}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Id_cl">
+					<subreportParameterExpression><![CDATA[$P{idclectivo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "librodetema1.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

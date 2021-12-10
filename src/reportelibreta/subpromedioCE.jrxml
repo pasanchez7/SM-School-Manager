@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subpromedio" pageWidth="80" pageHeight="802" columnWidth="80" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="pf.idcurso" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="pf.clectivo" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="pf.idalumno" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+
+     alumno.`Nombre` AS alumno_Nombre,
+     alumno.`Apellido` AS alumno_Apellido,
+     alumno.`DNI` AS alumno_DNI,
+     asignatura.`nombre` AS asignatura_nombre,
+     alumno.`idAlumno` AS alumno_idAlumno,
+     notas.`idtrimestre` AS notas_idtrimestre,
+      ROUND((avg(notas.`Nota1`  +
+     notas.`Nota2`  +
+     notas.`Nota3`)/3),2) as prom 
+FROM
+     `alumno` alumno INNER JOIN `notas` notas ON alumno.`idAlumno` = notas.`idAlumno`
+     INNER JOIN `asignatura` asignatura ON notas.`idasignatura` = asignatura.`idasignatura`
+     INNER JOIN `curso_division` curso_division ON notas.`idcurso_division` = curso_division.`idcurso_division`
+     INNER JOIN `trimestre` trimestre ON notas.`idtrimestre` = trimestre.`idtrimestre`
+     INNER JOIN `ciclolectivo` ciclolectivo ON notas.`idciclolectivo` = ciclolectivo.`idciclolectivo`
+     AND ciclolectivo.`idciclolectivo` = trimestre.`idciclolectivo`
+     INNER JOIN `curso` curso ON curso_division.`idcurso` = curso.`idcurso`
+WHERE
+    notas.`idcurso_division` = $P{pf.idcurso}
+     and notas.`idciclolectivo` =$P{pf.clectivo}
+and alumno.`idAlumno`=$P{pf.idalumno}
+group by alumno.`idAlumno` ,
+     notas.`idasignatura`
+ORDER BY
+     alumno.`Apellido` asc,
+     alumno.`Nombre`asc,
+     notas.`idtrimestre` ASC,
+     notas.`idasignatura` asc]]>
+	</queryString>
+	<field name="alumno_Nombre" class="java.lang.String"/>
+	<field name="alumno_Apellido" class="java.lang.String"/>
+	<field name="alumno_DNI" class="java.lang.String"/>
+	<field name="asignatura_nombre" class="java.lang.String"/>
+	<field name="alumno_idAlumno" class="java.lang.Long"/>
+	<field name="notas_idtrimestre" class="java.lang.Long"/>
+	<field name="prom" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="17" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="79" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Prom. Final]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="0" width="80" height="1"/>
+			</line>
+			<line>
+				<reportElement x="79" y="0" width="1" height="17"/>
+			</line>
+			<line>
+				<reportElement x="0" y="1" width="1" height="16"/>
+			</line>
+			<line>
+				<reportElement x="1" y="16" width="79" height="1"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="19" width="80" height="1"/>
+			</line>
+			<line>
+				<reportElement x="79" y="0" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement x="0" y="0" width="1" height="20"/>
+			</line>
+			<textField pattern="###0.00">
+				<reportElement x="19" y="0" width="46" height="19"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{prom}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

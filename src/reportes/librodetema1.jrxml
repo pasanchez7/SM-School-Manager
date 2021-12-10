@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="805" pageHeight="555" orientation="Landscape" columnWidth="805" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.100000000000005"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<subDataset name="New Dataset 1"/>
+	<parameter name="Id_cd" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Id_cl" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     registrotema.`idregistrotema` AS registrotema_idregistrotema,
+     registrotema.`fecha` AS registrotema_fecha,
+     registrotema.`clasen` AS registrotema_clasen,
+     registrotema.`caracterdclase` AS registrotema_caracterdclase,
+     registrotema.`temadeldia` AS registrotema_temadeldia,
+     registrotema.`actividadadesarrollar` AS registrotema_actividadadesarrollar,
+     registrotema.`observacion` AS registrotema_observacion,
+     registrotema.`idasignatura` AS registrotema_idasignatura,
+     asignatura.`nombre` AS asignatura_nombre,
+     registrotema.`idcurso_division` AS registrotema_idcurso_division, 
+registrotema.`hora` AS hora
+FROM
+     `asignatura` asignatura INNER JOIN `registrotema` registrotema ON asignatura.`idasignatura` = registrotema.`idasignatura`
+WHERE
+    registrotema.`idcurso_division` = $P{Id_cd}
+and registrotema.`idciclolectivo` =$P{Id_cl}
+ORDER BY
+
+     registrotema.`idasignatura`,registrotema.`clasen`, registrotema.`hora`]]>
+	</queryString>
+	<field name="registrotema_idregistrotema" class="java.lang.Long"/>
+	<field name="registrotema_fecha" class="java.sql.Date"/>
+	<field name="registrotema_clasen" class="java.lang.Long"/>
+	<field name="registrotema_caracterdclase" class="java.lang.String"/>
+	<field name="registrotema_temadeldia" class="java.lang.String"/>
+	<field name="registrotema_actividadadesarrollar" class="java.lang.String"/>
+	<field name="registrotema_observacion" class="java.lang.String"/>
+	<field name="registrotema_idasignatura" class="java.lang.Long"/>
+	<field name="asignatura_nombre" class="java.lang.String"/>
+	<field name="registrotema_idcurso_division" class="java.lang.Long"/>
+	<field name="hora" class="java.lang.String"/>
+	<group name="asignatura" isStartNewPage="true">
+		<groupExpression><![CDATA[$F{registrotema_idasignatura}]]></groupExpression>
+		<groupHeader>
+			<band height="49">
+				<textField>
+					<reportElement x="41" y="0" width="152" height="20"/>
+					<textElement>
+						<font fontName="Arial" size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{asignatura_nombre}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="41" y="23" width="210" height="20"/>
+					<textElement>
+						<font fontName="Arial" size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Espacio Curricular/ Disciplina]]></text>
+				</staticText>
+				<line>
+					<reportElement x="2" y="20" width="249" height="1"/>
+					<graphicElement>
+						<pen lineStyle="Dashed"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="Clasen">
+		<groupExpression><![CDATA[$F{registrotema_clasen}]]></groupExpression>
+		<groupHeader>
+			<band height="80">
+				<staticText>
+					<reportElement x="172" y="29" width="59" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Clase N°:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="138" y="60" width="153" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Característica de la Clase]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="291" y="60" width="180" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Temas del Día]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="471" y="60" width="235" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Actividades a Desarrollar]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="706" y="60" width="96" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Observación]]></text>
+				</staticText>
+				<line>
+					<reportElement x="137" y="61" width="1" height="18"/>
+				</line>
+				<line>
+					<reportElement x="801" y="61" width="1" height="18"/>
+				</line>
+				<line>
+					<reportElement x="471" y="61" width="1" height="18"/>
+				</line>
+				<line>
+					<reportElement x="705" y="61" width="1" height="18"/>
+				</line>
+				<line>
+					<reportElement x="291" y="61" width="1" height="18"/>
+				</line>
+				<staticText>
+					<reportElement x="5" y="29" width="47" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Fecha:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="52" y="29" width="50" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{registrotema_fecha}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="231" y="29" width="20" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{registrotema_clasen}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="4" y="60" width="134" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Hora]]></text>
+				</staticText>
+				<line>
+					<reportElement x="2" y="60" width="799" height="1"/>
+				</line>
+				<line>
+					<reportElement x="3" y="78" width="799" height="1"/>
+				</line>
+				<line>
+					<reportElement x="2" y="61" width="1" height="19"/>
+				</line>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="51" splitType="Stretch">
+			<textField>
+				<reportElement x="141" y="0" width="150" height="20"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{registrotema_caracterdclase}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="476" y="0" width="229" height="51"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{registrotema_actividadadesarrollar}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="710" y="0" width="91" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{registrotema_observacion}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="2" y="50" width="800" height="1"/>
+			</line>
+			<line>
+				<reportElement x="801" y="0" width="1" height="50"/>
+			</line>
+			<line>
+				<reportElement x="705" y="0" width="1" height="51"/>
+			</line>
+			<textField>
+				<reportElement x="296" y="0" width="175" height="50"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{registrotema_temadeldia}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="471" y="0" width="1" height="50"/>
+			</line>
+			<line>
+				<reportElement x="291" y="0" width="1" height="51"/>
+			</line>
+			<line>
+				<reportElement x="137" y="0" width="1" height="51"/>
+			</line>
+			<line>
+				<reportElement x="2" y="0" width="1" height="51"/>
+			</line>
+			<textField>
+				<reportElement x="5" y="0" width="132" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hora}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
